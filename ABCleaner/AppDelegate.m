@@ -12,9 +12,14 @@
 
 @synthesize window = _window;
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
+    ABDiscrepancyScanner * scanner = [[ABDiscrepancyScanner alloc] initWithDelegate:self];
+    [scanner scanInBackground];
+}
+
+- (void)suggestionScannerDone:(ABDiscrepancyScanner *)scanner suggestions:(NSArray *)theSuggestions {
+    NSLog(@"Suggestions: %@", theSuggestions);
 }
 
 @end

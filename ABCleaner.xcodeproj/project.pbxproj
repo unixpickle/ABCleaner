@@ -13,6 +13,11 @@
 		FA2E524E14C36906005B72CD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FA2E524C14C36906005B72CD /* Credits.rtf */; };
 		FA2E525114C36906005B72CD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2E525014C36906005B72CD /* AppDelegate.m */; };
 		FA2E525414C36906005B72CD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA2E525214C36906005B72CD /* MainMenu.xib */; };
+		FA2E525F14C36A6A005B72CD /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2E525E14C36A6A005B72CD /* AddressBook.framework */; };
+		FA2E526214C36B09005B72CD /* ABDuplicateDiscrepancy.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2E526114C36B09005B72CD /* ABDuplicateDiscrepancy.m */; };
+		FA2E526514C36D02005B72CD /* ABDiscrepancyScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2E526414C36D02005B72CD /* ABDiscrepancyScanner.m */; };
+		FA2E526914C385E3005B72CD /* ABDiscrepancy.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2E526814C385E3005B72CD /* ABDiscrepancy.m */; };
+		FA2E526C14C38B07005B72CD /* ABDiscrepancyView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2E526B14C38B07005B72CD /* ABDiscrepancyView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,14 +26,23 @@
 		FA2E524014C36906005B72CD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		FA2E524114C36906005B72CD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		FA2E524214C36906005B72CD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		FA2E524514C36906005B72CD /* ABCleaner-Info.plist */ = {isa = PBXFileReference; path = "ABCleaner-Info.plist"; sourceTree = "<group>"; };
+		FA2E524514C36906005B72CD /* ABCleaner-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ABCleaner-Info.plist"; sourceTree = "<group>"; };
 		FA2E524714C36906005B72CD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FA2E524914C36906005B72CD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		FA2E524B14C36906005B72CD /* ABCleaner-Prefix.pch */ = {isa = PBXFileReference; path = "ABCleaner-Prefix.pch"; sourceTree = "<group>"; };
+		FA2E524B14C36906005B72CD /* ABCleaner-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ABCleaner-Prefix.pch"; sourceTree = "<group>"; };
 		FA2E524D14C36906005B72CD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		FA2E524F14C36906005B72CD /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		FA2E524F14C36906005B72CD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FA2E525014C36906005B72CD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FA2E525314C36906005B72CD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		FA2E525E14C36A6A005B72CD /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		FA2E526014C36B09005B72CD /* ABDuplicateDiscrepancy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABDuplicateDiscrepancy.h; sourceTree = "<group>"; };
+		FA2E526114C36B09005B72CD /* ABDuplicateDiscrepancy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABDuplicateDiscrepancy.m; sourceTree = "<group>"; };
+		FA2E526314C36D02005B72CD /* ABDiscrepancyScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABDiscrepancyScanner.h; sourceTree = "<group>"; };
+		FA2E526414C36D02005B72CD /* ABDiscrepancyScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABDiscrepancyScanner.m; sourceTree = "<group>"; };
+		FA2E526714C385BD005B72CD /* ABDiscrepancy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABDiscrepancy.h; sourceTree = "<group>"; };
+		FA2E526814C385E3005B72CD /* ABDiscrepancy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABDiscrepancy.m; sourceTree = "<group>"; };
+		FA2E526A14C38B07005B72CD /* ABDiscrepancyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABDiscrepancyView.h; sourceTree = "<group>"; };
+		FA2E526B14C38B07005B72CD /* ABDiscrepancyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABDiscrepancyView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA2E525F14C36A6A005B72CD /* AddressBook.framework in Frameworks */,
 				FA2E523E14C36906005B72CD /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -63,6 +78,7 @@
 		FA2E523C14C36905005B72CD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA2E525E14C36A6A005B72CD /* AddressBook.framework */,
 				FA2E523D14C36905005B72CD /* Cocoa.framework */,
 				FA2E523F14C36906005B72CD /* Other Frameworks */,
 			);
@@ -82,6 +98,8 @@
 		FA2E524314C36906005B72CD /* ABCleaner */ = {
 			isa = PBXGroup;
 			children = (
+				FA2E525A14C36A0B005B72CD /* Suggestions */,
+				FA2E526614C381EA005B72CD /* Suggestion View */,
 				FA2E524F14C36906005B72CD /* AppDelegate.h */,
 				FA2E525014C36906005B72CD /* AppDelegate.m */,
 				FA2E525214C36906005B72CD /* MainMenu.xib */,
@@ -100,6 +118,28 @@
 				FA2E524C14C36906005B72CD /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FA2E525A14C36A0B005B72CD /* Suggestions */ = {
+			isa = PBXGroup;
+			children = (
+				FA2E526714C385BD005B72CD /* ABDiscrepancy.h */,
+				FA2E526814C385E3005B72CD /* ABDiscrepancy.m */,
+				FA2E526014C36B09005B72CD /* ABDuplicateDiscrepancy.h */,
+				FA2E526114C36B09005B72CD /* ABDuplicateDiscrepancy.m */,
+				FA2E526314C36D02005B72CD /* ABDiscrepancyScanner.h */,
+				FA2E526414C36D02005B72CD /* ABDiscrepancyScanner.m */,
+			);
+			name = Suggestions;
+			sourceTree = "<group>";
+		};
+		FA2E526614C381EA005B72CD /* Suggestion View */ = {
+			isa = PBXGroup;
+			children = (
+				FA2E526A14C38B07005B72CD /* ABDiscrepancyView.h */,
+				FA2E526B14C38B07005B72CD /* ABDiscrepancyView.m */,
+			);
+			name = "Suggestion View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -167,6 +207,10 @@
 			files = (
 				FA2E524A14C36906005B72CD /* main.m in Sources */,
 				FA2E525114C36906005B72CD /* AppDelegate.m in Sources */,
+				FA2E526214C36B09005B72CD /* ABDuplicateDiscrepancy.m in Sources */,
+				FA2E526514C36D02005B72CD /* ABDiscrepancyScanner.m in Sources */,
+				FA2E526914C385E3005B72CD /* ABDiscrepancy.m in Sources */,
+				FA2E526C14C38B07005B72CD /* ABDiscrepancyView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
