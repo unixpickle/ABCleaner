@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'ABCleaner' target in the 'ABCleaner' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
