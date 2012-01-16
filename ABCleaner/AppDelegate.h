@@ -16,6 +16,7 @@
     ABPersonView * personView;
     
     NSProgressIndicator * loadingSpinner;
+    NSTextField * loadingLabel;
 }
 
 @property (assign) IBOutlet NSWindow * window;

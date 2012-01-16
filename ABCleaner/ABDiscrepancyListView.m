@@ -38,7 +38,9 @@
 
 - (void)setFrame:(NSRect)aRect {
     [super setFrame:aRect];
+    [clipView setFrame:NSMakeRect(0, 0, aRect.size.width, aRect.size.height)];
     [self layoutContentView];
+    [self reflectScrolledClipView:self.documentView];
 }
 
 - (void)layoutContentView {

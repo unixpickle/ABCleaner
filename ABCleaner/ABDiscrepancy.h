@@ -12,7 +12,7 @@
 @interface ABDiscrepancy : NSObject {
     NSArray * people;
     NSString * summary;
-    __weak ABAddressBook * addressBook;
+    ABAddressBook * addressBook;
 }
 
 @property (readonly) NSArray * people;

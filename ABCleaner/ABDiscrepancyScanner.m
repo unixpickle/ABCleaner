@@ -50,10 +50,13 @@
 
 - (void)scanAndCall:(void (^)(NSArray * suggestions))callback {
     @autoreleasepool {
+        NSDate * waitUntil = [NSDate dateWithTimeIntervalSinceNow:2];
         NSMutableArray * discrepanciesMutable = [[NSMutableArray alloc] init];
-        ABAddressBook * book = [ABAddressBook sharedAddressBook];
+        ABAddressBook * book = [ABAddressBook addressBook];
         
         [discrepanciesMutable addObjectsFromArray:[ABDuplicateDiscrepancy discrepanciesForAddressBook:book]];
+        
+        [NSThread sleepUntilDate:waitUntil];
         
         NSArray * discrepancies = [NSArray arrayWithArray:discrepanciesMutable];
         if ([[NSThread currentThread] isCancelled]) return;
