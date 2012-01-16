@@ -112,7 +112,7 @@
         for (NSString * property in properties) {
             [self mergeProperty:property original:changing merging:person];
         }
-        
+                
         // merge picture (if one isn't already present)
         if (![changing imageData] && [person imageData]) {
             [changing setImageData:[person imageData]];
@@ -156,12 +156,19 @@
         id value = [additional valueAtIndex:i];
         
         NSString * changedLabel = label;
-        NSUInteger appendedNumber = 1;
+        NSUInteger appendedNumber = 0;
         
         BOOL exists = NO;
         do {
-            if (exists) changedLabel = [NSString stringWithFormat:@"%@ %lld", label, appendedNumber];
-            exists = NO;
+            if (exists) {
+                if (appendedNumber == 0) {
+                    changedLabel = kABOtherLabel;
+                } else {
+                    changedLabel = [NSString stringWithFormat:@"other %lld", appendedNumber];
+                }
+                appendedNumber++;
+                exists = NO;
+            }
             for (NSUInteger j = 0; j < [mutable count]; j++) {
                 if ([[mutable labelAtIndex:j] isEqualToString:changedLabel]) {
                     exists = YES;
@@ -169,8 +176,7 @@
                 }
             }
         } while (exists);
-        
-        [mutable setValue:value forKey:changedLabel];
+        [mutable insertValue:value withLabel:changedLabel atIndex:[mutable count]];
     }
     
     return mutable;

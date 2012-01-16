@@ -22,6 +22,7 @@
     __weak id<ABDiscrepancyListViewDelegate> delegate;
     NSClipView * clipView;
     NSView * contentView;
+    NSTextField * noDiscrepanciesLabel;
 }
 
 @property (nonatomic, weak) id<ABDiscrepancyListViewDelegate> delegate;

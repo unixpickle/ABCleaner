@@ -13,5 +13,6 @@
 }
 
 - (id)initWithWidth:(CGFloat)width operations:(NSOperationQueue *)aQueue;
+- (void)operationComplete;
 
 @end

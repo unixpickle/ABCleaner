@@ -47,6 +47,7 @@
     } else {
         [personView setFrame:NSMakeRect(290, 45, [self.window.contentView frame].size.width - 300,
                                         [self.window.contentView frame].size.height - 55)];
+        [personView setPerson:nil];
     }
     
     if (!resolveButton) {

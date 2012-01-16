@@ -28,6 +28,17 @@
         }
         
         discrepancyViews = [[NSArray alloc] initWithArray:mDiscrepancyViews];
+        
+        if ([discrepancyViews count] == 0) {
+            noDiscrepanciesLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(10, 10, frameRect.size.width - 20, 20)];
+            [noDiscrepanciesLabel setAlignment:NSCenterTextAlignment];
+            [noDiscrepanciesLabel setBordered:NO];
+            [noDiscrepanciesLabel setBackgroundColor:[NSColor clearColor]];
+            [noDiscrepanciesLabel setEditable:NO];
+            [noDiscrepanciesLabel setSelectable:NO];
+            [noDiscrepanciesLabel setStringValue:@"No Discrepancies"];
+        }
+        
         contentView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, frameRect.size.width, 10)];
         [clipView setDocumentView:contentView];
         [self layoutContentView];
@@ -67,6 +78,13 @@
         if (![discrepancyView superview]) {
             [contentView addSubview:discrepancyView];
         }
+    }
+    
+    if (noDiscrepanciesLabel) {
+        if (![noDiscrepanciesLabel superview]) {
+            [contentView addSubview:noDiscrepanciesLabel];
+        }
+        [noDiscrepanciesLabel setFrame:NSMakeRect(10, height - 30, self.frame.size.width - 20, 20)];
     }
 }
 

@@ -39,9 +39,13 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (object == queue) {
         if ([queue operationCount] == 0) {
-            [NSApp stopModal];
+            [self performSelectorOnMainThread:@selector(operationComplete) withObject:nil waitUntilDone:NO];
         }
     }
+}
+
+- (void)operationComplete {
+    [NSApp stopModalWithCode:0];
 }
 
 @end
