@@ -13,7 +13,7 @@
 
 @protocol ABDiscrepancyScannerDelegate <NSObject>
 
-- (void)suggestionScannerDone:(ABDiscrepancyScanner *)scanner suggestions:(NSArray *)theSuggestions;
+- (void)suggestionScannerDone:(ABDiscrepancyScanner *)scanner discrepancies:(NSArray *)discrepancies;
 
 @end
 

@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "ABDiscrepancy.h"
 
+#define kTitleHeight 21
+
 @class ABDiscrepancyView;
 
 @protocol ABDiscrepancyViewDelegate <NSObject>
@@ -21,10 +23,19 @@
 
 @interface ABDiscrepancyView : NSView {
     ABDiscrepancy * discrepancy;
+    
+    NSTextField * descriptionTextField;
+    NSButton * disclosureIndicator;
+    NSTableView * peopleTable;
+    
+    BOOL isFocused;
 }
 
 @property (readonly) ABDiscrepancy * discrepancy;
+@property (readwrite) BOOL isFocused;
 
-- (id)initWithFrame:(NSRect)frameRect discrepancy:(ANDiscrepancy *)aDiscrepancy;
+- (id)initWithFrame:(NSRect)frameRect discrepancy:(ABDiscrepancy *)aDiscrepancy;
+
+- (void)disclosurePressed:(id)sender;
 
 @end

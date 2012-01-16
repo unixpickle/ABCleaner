@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "ABDiscrepancyScanner.h"
+#import "ABDiscrepancyView.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, ABDiscrepancyScannerDelegate>
 

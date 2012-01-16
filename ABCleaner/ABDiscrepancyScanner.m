@@ -64,7 +64,7 @@
 
 - (void)giveDelegateArray:(NSArray *)theArray {
     scanningThread = nil;
-    [delegate suggestionScannerDone:self suggestions:theArray];
+    [delegate suggestionScannerDone:self discrepancies:theArray];
 }
 
 @end

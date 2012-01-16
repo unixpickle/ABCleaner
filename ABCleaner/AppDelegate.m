@@ -18,8 +18,12 @@
     [scanner scanInBackground];
 }
 
-- (void)suggestionScannerDone:(ABDiscrepancyScanner *)scanner suggestions:(NSArray *)theSuggestions {
-    NSLog(@"Suggestions: %@", theSuggestions);
+- (void)suggestionScannerDone:(ABDiscrepancyScanner *)scanner discrepancies:(NSArray *)theSuggestions {
+    NSLog(@"Discrepancies: %@", theSuggestions);
+    if ([theSuggestions count] > 0) {
+        ABDiscrepancyView * dv = [[ABDiscrepancyView alloc] initWithFrame:NSMakeRect(10, 110, 300, 23) discrepancy:[theSuggestions objectAtIndex:0]];
+        [self.window.contentView addSubview:dv];
+    }
 }
 
 @end
