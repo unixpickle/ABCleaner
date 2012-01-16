@@ -20,6 +20,7 @@
 @implementation ABDiscrepancyView
 
 @synthesize discrepancy;
+@synthesize delegate;
 
 - (id)initWithFrame:(NSRect)frameRect discrepancy:(ABDiscrepancy *)aDiscrepancy {
     frameRect.size.height = kTitleHeight + 2;
@@ -39,16 +40,34 @@
         [solutionLabel setSelectable:NO];
         [solutionLabel setEditable:NO];
         [solutionLabel setBordered:NO];
-        [solutionLabel setAlignment:NSCenterTextAlignment];
+        [solutionLabel setAlignment:NSRightTextAlignment];
         [solutionLabel setStringValue:@"Action: "];
         
         solutionOptions = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 26) pullsDown:NO];
-        NSMutableArray * options = [NSMutableArray arrayWithCapacity:[aDiscrepancy numberOfResolutions] + 1];
         for (NSUInteger i = 0; i < [aDiscrepancy numberOfResolutions]; i++) {
-            [options addObject:[aDiscrepancy titleForResolutionAtIndex:i]];
+            [solutionOptions addItemWithTitle:[aDiscrepancy titleForResolutionAtIndex:i]];
         }
-        [options addObject:@"Take no action"];
+        [[solutionOptions menu] addItem:[NSMenuItem separatorItem]];
+        [solutionOptions addItemWithTitle:@"No action"];
         
+        
+        peopleTable = [[NSTableView alloc] initWithFrame:NSMakeRect(0, 0, self.frame.size.width - 20, 20)];
+        NSTableColumn * firstColumn = [[NSTableColumn alloc] initWithIdentifier:@"First"];
+        NSTableColumn * lastColumn = [[NSTableColumn alloc] initWithIdentifier:@"Last"];
+        [firstColumn setWidth:100];
+        [lastColumn setWidth:100];
+        [[firstColumn headerCell] setTitle:@"First Name"];
+        [[lastColumn headerCell] setTitle:@"Last Name"];
+        [peopleTable addTableColumn:firstColumn];
+        [peopleTable addTableColumn:lastColumn];
+        [peopleTable setDataSource:self];
+        [peopleTable setDelegate:self];
+        
+        tableScrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, self.frame.size.width - 20, 20)];
+        [tableScrollView setBorderType:NSBezelBorder];
+        [tableScrollView setDocumentView:peopleTable];
+        [tableScrollView setHasVerticalScroller:YES];
+         
         [self addSubview:disclosureIndicator];
     }
     return self;
@@ -59,6 +78,9 @@
 - (void)setFrame:(NSRect)frameRect {
     [super setFrame:frameRect];
     [disclosureIndicator setFrame:NSMakeRect(5, frameRect.size.height - (kTitleHeight / 2) - 8, 13, 13)];
+    if ([tableScrollView superview]) {
+        [tableScrollView setFrame:NSMakeRect(10, 10, self.frame.size.width - 20, self.frame.size.height - (kTitleHeight + 49))];
+    }
 }
 
 #pragma mark Focus
@@ -79,11 +101,23 @@
     if ([disclosureIndicator state] == 0) {
         frame.size.height = kTitleHeight + 2;
         self.frame = frame;
-        // remote the additional UI components
+        // remove the additional UI components
+        [solutionOptions removeFromSuperview];
+        [solutionLabel removeFromSuperview];
+        [tableScrollView removeFromSuperview];
     } else {
-        frame.size.height = 100;
+        frame.size.height = kExpandedHeight;
         self.frame = frame;
         // add the additional UI components
+        [solutionLabel setFrame:NSMakeRect(10, self.frame.size.height - (kTitleHeight + 27), 45, 15)];
+        [solutionOptions setFrame:NSMakeRect(55, self.frame.size.height - (kTitleHeight + 34), 150, 26)];
+        [tableScrollView setFrame:NSMakeRect(10, 10, self.frame.size.width - 20, self.frame.size.height - (kTitleHeight + 49))];
+        [self addSubview:solutionLabel];
+        [self addSubview:solutionOptions];
+        [self addSubview:tableScrollView];
+    }
+    if ([delegate respondsToSelector:@selector(discrepancyViewResizedInternally:)]) {
+        [delegate discrepancyViewResizedInternally:self];
     }
     [self setNeedsDisplay:YES];
 }
@@ -231,6 +265,37 @@
     NSMutableAttributedString * title = [[NSMutableAttributedString alloc] initWithString:[discrepancy summary]
                                                                                attributes:attributes];
     [title drawAtPoint:NSMakePoint(aPoint.x, aPoint.y)];
+}
+
+#pragma mark - Table View -
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    return [[discrepancy people] count];
+}
+
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    ABPerson * person = [[discrepancy people] objectAtIndex:row];
+    NSString * name;
+    if ([[tableColumn identifier] isEqualToString:@"First"]) {
+        name = [person valueForProperty:kABFirstNameProperty];
+    } else {
+        name = [person valueForProperty:kABLastNameProperty];
+    }
+    return (name == nil ? @"" : name);
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+    NSInteger selected = [peopleTable selectedRow];
+    if (selected < 0) {
+        if ([delegate respondsToSelector:@selector(discrepancyView:previewPerson:)]) {
+            [delegate discrepancyView:self previewPerson:nil];
+        }
+        return;
+    }
+    ABPerson * person = [[discrepancy people] objectAtIndex:selected];
+    if ([delegate respondsToSelector:@selector(discrepancyView:previewPerson:)]) {
+        [delegate discrepancyView:self previewPerson:person];
+    }
 }
 
 @end

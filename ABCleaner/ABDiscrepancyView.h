@@ -10,6 +10,7 @@
 #import "ABDiscrepancy.h"
 
 #define kTitleHeight 21
+#define kExpandedHeight 126
 
 @class ABDiscrepancyView;
 
@@ -21,7 +22,7 @@
 
 @end
 
-@interface ABDiscrepancyView : NSView {
+@interface ABDiscrepancyView : NSView <NSTableViewDataSource, NSTableViewDelegate> {
     ABDiscrepancy * discrepancy;
     
     NSTextField * solutionLabel;
@@ -29,12 +30,15 @@
     
     NSButton * disclosureIndicator;
     NSTableView * peopleTable;
+    NSScrollView * tableScrollView;
     
     BOOL isFocused;
+    __weak id<ABDiscrepancyViewDelegate> delegate;
 }
 
 @property (readonly) ABDiscrepancy * discrepancy;
 @property (readwrite) BOOL isFocused;
+@property (nonatomic, weak) id<ABDiscrepancyViewDelegate> delegate;
 
 - (id)initWithFrame:(NSRect)frameRect discrepancy:(ABDiscrepancy *)aDiscrepancy;
 
