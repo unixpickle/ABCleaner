@@ -18,12 +18,15 @@
     [scanner scanInBackground];
 }
 
-- (void)suggestionScannerDone:(ABDiscrepancyScanner *)scanner discrepancies:(NSArray *)theSuggestions {
-    NSLog(@"Discrepancies: %@", theSuggestions);
-    if ([theSuggestions count] > 0) {
-        ABDiscrepancyView * dv = [[ABDiscrepancyView alloc] initWithFrame:NSMakeRect(10, 110, 300, 23) discrepancy:[theSuggestions objectAtIndex:0]];
-        [self.window.contentView addSubview:dv];
-    }
+- (void)suggestionScannerDone:(ABDiscrepancyScanner *)scanner discrepancies:(NSArray *)discrepancies {
+    NSLog(@"Discrepancies: %@", discrepancies);
+    discrepancyList = [[ABDiscrepancyListView alloc] initWithFrame:NSMakeRect(0, 0, 280, [self.window.contentView frame].size.height) discrepancies:discrepancies];
+    [discrepancyList setAutoresizingMask:NSViewHeightSizable];
+    [self.window.contentView addSubview:discrepancyList];
+}
+
+- (void)discrepancyListView:(ABDiscrepancyListView *)listView previewPerson:(ABPerson *)person {
+    
 }
 
 @end

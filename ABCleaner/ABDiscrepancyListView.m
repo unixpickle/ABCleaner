@@ -15,7 +15,7 @@
 - (id)initWithFrame:(NSRect)frameRect discrepancies:(NSArray *)discrepancies {
     if ((self = [super initWithFrame:frameRect])) {
         [self setHasVerticalScroller:YES];
-        [self setBorderType:NSBezelBorder];
+        [self setBorderType:NSNoBorder];
         clipView = [[NSClipView alloc] initWithFrame:frameRect];
         [self setDocumentView:clipView];
         
@@ -24,31 +24,46 @@
             ABDiscrepancy * discrepancy = [discrepancies objectAtIndex:i];
             ABDiscrepancyView * discrepancyView = [[ABDiscrepancyView alloc] initWithFrame:NSMakeRect(0, 0, frameRect.size.width - 20, 23) discrepancy:discrepancy];
             [mDiscrepancyViews addObject:discrepancyView];
+            [discrepancyView setDelegate:self];
         }
         
         discrepancyViews = [[NSArray alloc] initWithArray:mDiscrepancyViews];
         contentView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, frameRect.size.width, 10)];
+        [clipView setDocumentView:contentView];
         [self layoutContentView];
+        [clipView setCopiesOnScroll:NO];
     }
     return self;
 }
 
+- (void)setFrame:(NSRect)aRect {
+    [super setFrame:aRect];
+    [self layoutContentView];
+}
+
 - (void)layoutContentView {
-    while ([[contentView subviews] count] > 0) {
-        [[[contentView subviews] lastObject] removeFromSuperview];
-    }
-    
-    CGFloat y = 10;
+    CGFloat height = 10;
     for (ABDiscrepancyView * discrepancyView in discrepancyViews) {
         NSRect frame = discrepancyView.frame;
-        frame.origin.y = y;
-        y += frame.size.height + 10;
-        discrepancyView.frame = frame;
+        height += frame.size.height + 10;
     }
-    [contentView setFrame:NSMakeRect(0, 0, self.frame.size.width, y)];
     
+    if (height < self.frame.size.height) height = self.frame.size.height;
+    [contentView setFrame:NSMakeRect(0, 0, self.frame.size.width, height)];
+    
+    CGFloat y = height;
     for (ABDiscrepancyView * discrepancyView in discrepancyViews) {
-        [contentView addSubview:discrepancyView];
+        NSRect frame = discrepancyView.frame;
+        y -= frame.size.height + 10;
+        
+        frame.origin.y = y;
+        frame.size.width = self.frame.size.width - 20;
+        frame.origin.x = 10;
+        discrepancyView.frame = frame;
+        
+        if (![discrepancyView superview]) {
+            [contentView addSubview:discrepancyView];
+        }
     }
 }
 
@@ -60,6 +75,7 @@
 
 - (void)discrepancyViewResizedInternally:(ABDiscrepancyView *)discrepancyView {
     [self layoutContentView];
+    [self reflectScrolledClipView:self.documentView];
     [self scrollRectToVisible:discrepancyView.frame];
 }
 

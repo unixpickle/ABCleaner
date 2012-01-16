@@ -94,6 +94,26 @@
     [self setNeedsDisplay:YES];
 }
 
+- (BOOL)canBecomeKeyView {
+    return YES;
+}
+
+- (BOOL)becomeFirstResponder {
+    isHighlighted = YES;
+    [self setNeedsDisplay:YES];
+    return YES;
+}
+
+- (BOOL)resignFirstResponder {
+    isHighlighted = NO;
+    [self setNeedsDisplay:YES];
+    return YES;
+}
+
+- (void)mouseDown:(NSEvent *)theEvent {
+    [[self window] makeFirstResponder:self];
+}
+
 #pragma mark Actions
 
 - (void)disclosurePressed:(id)sender {
@@ -161,7 +181,11 @@
     CGPathCloseSubpath(path);
     
     // stroke the border of the view
-    CGContextSetRGBStrokeColor(context, borderColor, borderColor, borderColor, 1);
+    if (!isHighlighted) {
+        CGContextSetGrayStrokeColor(context, borderColor, 1);
+    } else {
+        CGContextSetRGBStrokeColor(context, 72.0 / 255.0, 139.0 / 255.0, 208.0 / 255.0, 1);
+    }
     CGContextSetLineWidth(context, 2);
     CGContextBeginPath(context);
     CGContextAddPath(context, path);
@@ -213,7 +237,11 @@
     CGContextBeginPath(context);
     CGContextAddPath(context, path);
     CGContextClosePath(context);
-    CGContextSetGrayStrokeColor(context, borderColor, 1);
+    if (!isHighlighted) {
+        CGContextSetGrayStrokeColor(context, borderColor, 1);
+    } else {
+        CGContextSetRGBStrokeColor(context, 72.0 / 255.0, 139.0 / 255.0, 208.0 / 255.0, 1);
+    }
     CGContextSetLineWidth(context, 2);
     CGContextStrokePath(context);
     

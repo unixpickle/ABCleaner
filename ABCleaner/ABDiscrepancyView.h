@@ -33,6 +33,7 @@
     NSScrollView * tableScrollView;
     
     BOOL isFocused;
+    BOOL isHighlighted;
     __weak id<ABDiscrepancyViewDelegate> delegate;
 }
 
