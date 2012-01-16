@@ -105,12 +105,13 @@
     ResolvingWindow * resolveWindow = [[ResolvingWindow alloc] initWithWidth:500 operations:queue];
     
     [NSApp beginSheet:resolveWindow modalForWindow:self.window modalDelegate:self didEndSelector:NULL contextInfo:NULL];
-    [NSApp runModalForWindow:resolveWindow];
+    //[NSApp runModalForWindow:resolveWindow];
     
-    [NSApp endSheet:resolveWindow];
-    [resolveWindow orderOut:nil];
+    /*
+     [NSApp endSheet:resolveWindow];
+     [resolveWindow orderOut:nil];
+     */
     
-    [self performSelector:@selector(reloadDiscrepancies) withObject:nil afterDelay:0.1];
 }
 
 - (void)reload:(id)sender {

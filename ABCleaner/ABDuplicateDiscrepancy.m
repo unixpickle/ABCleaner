@@ -89,10 +89,14 @@
 }
 
 - (void)resolveWithResolutionAtIndex:(NSUInteger)resolutionIndex {
-    if (resolutionIndex == 0) {
-        [self resolveByMerging];
-    } else if (resolutionIndex == 1) {
-        [self resolveByDeletion];
+    @try {
+        if (resolutionIndex == 0) {
+            [self resolveByMerging];
+        } else if (resolutionIndex == 1) {
+            [self resolveByDeletion];
+        }
+    } @catch (NSException * ex) {
+        NSLog(@"%@", ex);
     }
 }
 
@@ -129,6 +133,7 @@
         [addressBook removeRecord:person];
     }
     
+    NSLog(@"Resolved issue: %@", self);
     [addressBook save];
 }
 
@@ -158,7 +163,7 @@
         NSString * changedLabel = label;
         NSUInteger appendedNumber = 0;
         
-        BOOL exists = NO;
+        BOOL exists = NO, existsDuplicate = NO;
         do {
             if (exists) {
                 if (appendedNumber == 0) {
@@ -170,12 +175,17 @@
                 exists = NO;
             }
             for (NSUInteger j = 0; j < [mutable count]; j++) {
+                if ([[mutable valueAtIndex:j] isEqualToString:value]) {
+                    existsDuplicate = YES;
+                }
                 if ([[mutable labelAtIndex:j] isEqualToString:changedLabel]) {
                     exists = YES;
                     break;
                 }
             }
+            if (existsDuplicate) break;
         } while (exists);
+        if (existsDuplicate) continue;
         [mutable insertValue:value withLabel:changedLabel atIndex:[mutable count]];
     }
     

@@ -11,7 +11,7 @@
 @implementation ResolvingWindow
 
 - (id)initWithWidth:(CGFloat)width operations:(NSOperationQueue *)aQueue {
-    self = [super initWithContentRect:NSMakeRect(0, 0, width, 80) styleMask:NSTitledWindowMask
+    self = [super initWithContentRect:NSMakeRect(0, 0, width, 70) styleMask:NSTitledWindowMask
                               backing:NSBackingStoreBuffered defer:NO];
     if (self) {
         NSProgressIndicator * progress = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(10, 10, width - 20, 22)];
@@ -19,7 +19,7 @@
         [progress setIndeterminate:YES];
         [progress startAnimation:self];
         
-        NSTextField * activityText = [[NSTextField alloc] initWithFrame:NSMakeRect(10, 30, width - 20, 20)];
+        NSTextField * activityText = [[NSTextField alloc] initWithFrame:NSMakeRect(10, 35, width - 20, 20)];
         [activityText setStringValue:@"Applying changes to the Address Book..."];
         [activityText setBordered:NO];
         [activityText setBackgroundColor:[NSColor clearColor]];
@@ -31,9 +31,13 @@
         
         queue = aQueue;
         [queue addObserver:self forKeyPath:@"operations" options:0 context:NULL];
-        [queue setSuspended:NO];
+        [self performSelector:@selector(startQueue) withObject:nil afterDelay:0.75];
     }
     return self;
+}
+
+- (void)startQueue {
+    [queue setSuspended:NO];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -45,7 +49,11 @@
 }
 
 - (void)operationComplete {
-    [NSApp stopModalWithCode:0];
+    [NSApp endSheet:self];
+    [self orderOut:nil];
+    id appDelegate = [[NSApplication sharedApplication] delegate];
+    [appDelegate performSelector:@selector(reloadDiscrepancies) withObject:nil afterDelay:0.1];
+
 }
 
 @end
