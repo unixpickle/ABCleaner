@@ -130,10 +130,10 @@
 }
 
 - (void)drawOpen:(CGContextRef)context {
-    __unused CGFloat topGradient = (isFocused ? 227.0 / 255.0 : 241.0 / 255.0);
-    __unused CGFloat bottomGradient = (isFocused ? 199.0 / 255.0 : 214.0 / 255.0);
-    __unused CGFloat borderColor = 153.0 / 255.0;
-    __unused CGFloat separatorColor = 168.0 / 255.0;
+    CGFloat topGradient = (isFocused ? 227.0 / 255.0 : 241.0 / 255.0);
+    CGFloat bottomGradient = (isFocused ? 199.0 / 255.0 : 214.0 / 255.0);
+    CGFloat borderColor = 153.0 / 255.0;
+    CGFloat separatorColor = 168.0 / 255.0;
     
     CGRect frame = NSRectToCGRect(self.bounds);
     

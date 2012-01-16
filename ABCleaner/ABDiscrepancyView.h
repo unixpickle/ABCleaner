@@ -24,7 +24,9 @@
 @interface ABDiscrepancyView : NSView {
     ABDiscrepancy * discrepancy;
     
-    NSTextField * descriptionTextField;
+    NSTextField * solutionLabel;
+    NSPopUpButton * solutionOptions;
+    
     NSButton * disclosureIndicator;
     NSTableView * peopleTable;
     
