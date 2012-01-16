@@ -34,6 +34,21 @@
         [disclosureIndicator setTarget:self];
         [disclosureIndicator setAction:@selector(disclosurePressed:)];
         
+        solutionLabel = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 100, 15)];
+        [solutionLabel setBackgroundColor:[NSColor clearColor]];
+        [solutionLabel setSelectable:NO];
+        [solutionLabel setEditable:NO];
+        [solutionLabel setBordered:NO];
+        [solutionLabel setAlignment:NSCenterTextAlignment];
+        [solutionLabel setStringValue:@"Action: "];
+        
+        solutionOptions = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 26) pullsDown:NO];
+        NSMutableArray * options = [NSMutableArray arrayWithCapacity:[aDiscrepancy numberOfResolutions] + 1];
+        for (NSUInteger i = 0; i < [aDiscrepancy numberOfResolutions]; i++) {
+            [options addObject:[aDiscrepancy titleForResolutionAtIndex:i]];
+        }
+        [options addObject:@"Take no action"];
+        
         [self addSubview:disclosureIndicator];
     }
     return self;
@@ -63,10 +78,13 @@
     NSRect frame = self.frame;
     if ([disclosureIndicator state] == 0) {
         frame.size.height = kTitleHeight + 2;
+        self.frame = frame;
+        // remote the additional UI components
     } else {
         frame.size.height = 100;
+        self.frame = frame;
+        // add the additional UI components
     }
-    self.frame = frame;
     [self setNeedsDisplay:YES];
 }
 
