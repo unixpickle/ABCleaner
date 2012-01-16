@@ -49,7 +49,10 @@
         }
         [[solutionOptions menu] addItem:[NSMenuItem separatorItem]];
         [solutionOptions addItemWithTitle:@"No action"];
-        
+        [solutionOptions setTarget:self];
+        [solutionOptions setAction:@selector(solutionChanged:)];
+        [solutionOptions selectItemAtIndex:0];
+        [self setOperationNumber:0];
         
         peopleTable = [[NSTableView alloc] initWithFrame:NSMakeRect(0, 0, self.frame.size.width - 20, 20)];
         NSTableColumn * firstColumn = [[NSTableColumn alloc] initWithIdentifier:@"First"];
@@ -71,6 +74,29 @@
         [self addSubview:disclosureIndicator];
     }
     return self;
+}
+
+- (NSInteger)operationNumber {
+    @synchronized (self) {
+        return operationNumber;
+    }
+}
+
+- (void)setOperationNumber:(NSInteger)aNumber {
+    @synchronized (self) {
+        operationNumber = aNumber;
+    }
+}
+
+- (NSOperation *)discrepancyResolutionOperation {
+    if ([self operationNumber] < 0) return nil;
+    NSUInteger resolutionIndex = (NSUInteger)[self operationNumber];
+    NSMethodSignature * signature = [discrepancy methodSignatureForSelector:@selector(resolveWithResolutionAtIndex:)];
+    NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:signature];
+    [invocation setTarget:discrepancy];
+    [invocation setSelector:@selector(resolveWithResolutionAtIndex:)];
+    [invocation setArgument:&resolutionIndex atIndex:2];
+    return [[NSInvocationOperation alloc] initWithInvocation:invocation];
 }
 
 #pragma mark - UI -
@@ -142,12 +168,17 @@
     [self setNeedsDisplay:YES];
 }
 
+- (void)solutionChanged:(id)sender {
+    if ([solutionOptions indexOfSelectedItem] >= [discrepancy numberOfResolutions]) {
+        [self setOperationNumber:-1];
+    } else {
+        [self setOperationNumber:[solutionOptions indexOfSelectedItem]];
+    }
+}
+
 #pragma mark - Drawing -
 
 - (void)drawRect:(NSRect)dirtyRect {
-    // Drawing code here.
-    // bg: 232
-    
     CGContextRef context = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
     if ([disclosureIndicator state] == 0) [self drawClosed:context];
     else [self drawOpen:context];

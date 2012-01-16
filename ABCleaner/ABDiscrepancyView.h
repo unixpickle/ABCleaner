@@ -32,6 +32,8 @@
     NSTableView * peopleTable;
     NSScrollView * tableScrollView;
     
+    NSInteger operationNumber;
+    
     BOOL isFocused;
     BOOL isHighlighted;
     __weak id<ABDiscrepancyViewDelegate> delegate;
@@ -40,9 +42,13 @@
 @property (readonly) ABDiscrepancy * discrepancy;
 @property (readwrite) BOOL isFocused;
 @property (nonatomic, weak) id<ABDiscrepancyViewDelegate> delegate;
+@property (readwrite) NSInteger operationNumber;
 
 - (id)initWithFrame:(NSRect)frameRect discrepancy:(ABDiscrepancy *)aDiscrepancy;
 
 - (void)disclosurePressed:(id)sender;
+- (void)solutionChanged:(id)sender;
+
+- (NSOperation *)discrepancyResolutionOperation;
 
 @end

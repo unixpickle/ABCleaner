@@ -29,4 +29,6 @@
 - (id)initWithFrame:(NSRect)frameRect discrepancies:(NSArray *)discrepancies;
 - (void)layoutContentView;
 
+- (NSOperationQueue *)discrepancyResolutionQueue;
+
 @end

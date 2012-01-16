@@ -19,6 +19,7 @@
 		FA2E526914C385E3005B72CD /* ABDiscrepancy.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2E526814C385E3005B72CD /* ABDiscrepancy.m */; };
 		FA2E526C14C38B07005B72CD /* ABDiscrepancyView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2E526B14C38B07005B72CD /* ABDiscrepancyView.m */; };
 		FA2E527114C3D4EB005B72CD /* ABDiscrepancyListView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2E527014C3D4EB005B72CD /* ABDiscrepancyListView.m */; };
+		FAE0D50814C479460074F388 /* ResolvingWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE0D50714C479460074F388 /* ResolvingWindow.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,8 +45,10 @@
 		FA2E526814C385E3005B72CD /* ABDiscrepancy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABDiscrepancy.m; sourceTree = "<group>"; };
 		FA2E526A14C38B07005B72CD /* ABDiscrepancyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABDiscrepancyView.h; sourceTree = "<group>"; };
 		FA2E526B14C38B07005B72CD /* ABDiscrepancyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABDiscrepancyView.m; sourceTree = "<group>"; };
-		FA2E526F14C3D4EB005B72CD /* ABDiscrepancyListView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ABDiscrepancyListView.h; sourceTree = "<group>"; };
+		FA2E526F14C3D4EB005B72CD /* ABDiscrepancyListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABDiscrepancyListView.h; sourceTree = "<group>"; };
 		FA2E527014C3D4EB005B72CD /* ABDiscrepancyListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABDiscrepancyListView.m; sourceTree = "<group>"; };
+		FAE0D50614C479460074F388 /* ResolvingWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResolvingWindow.h; sourceTree = "<group>"; };
+		FAE0D50714C479460074F388 /* ResolvingWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResolvingWindow.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +108,8 @@
 				FA2E526614C381EA005B72CD /* Suggestion View */,
 				FA2E524F14C36906005B72CD /* AppDelegate.h */,
 				FA2E525014C36906005B72CD /* AppDelegate.m */,
+				FAE0D50614C479460074F388 /* ResolvingWindow.h */,
+				FAE0D50714C479460074F388 /* ResolvingWindow.m */,
 				FA2E525214C36906005B72CD /* MainMenu.xib */,
 				FA2E524414C36906005B72CD /* Supporting Files */,
 			);
@@ -234,6 +239,7 @@
 				FA2E526914C385E3005B72CD /* ABDiscrepancy.m in Sources */,
 				FA2E526C14C38B07005B72CD /* ABDiscrepancyView.m in Sources */,
 				FA2E527114C3D4EB005B72CD /* ABDiscrepancyListView.m in Sources */,
+				FAE0D50814C479460074F388 /* ResolvingWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +361,7 @@
 				FA2E525914C36906005B72CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

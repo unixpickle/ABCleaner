@@ -10,6 +10,7 @@
 #import <AddressBook/AddressBookUI.h>
 #import "ABDiscrepancyScanner.h"
 #import "ABDiscrepancyListView.h"
+#import "ResolvingWindow.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, ABDiscrepancyScannerDelegate, ABDiscrepancyListViewDelegate> {
     ABDiscrepancyListView * discrepancyList;
@@ -17,8 +18,14 @@
     
     NSProgressIndicator * loadingSpinner;
     NSTextField * loadingLabel;
+    NSButton * resolveButton;
+    NSButton * reloadButton;
 }
 
 @property (assign) IBOutlet NSWindow * window;
+
+- (void)resolve:(id)sender;
+- (void)reload:(id)sender;
+- (void)reloadDiscrepancies;
 
 @end

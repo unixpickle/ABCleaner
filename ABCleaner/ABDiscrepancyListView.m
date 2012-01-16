@@ -51,6 +51,7 @@
     }
     
     if (height < self.frame.size.height) height = self.frame.size.height;
+    [clipView setFrame:NSMakeRect(0, 0, self.frame.size.width, height)];
     [contentView setFrame:NSMakeRect(0, 0, self.frame.size.width, height)];
     
     CGFloat y = height;
@@ -69,6 +70,18 @@
     }
 }
 
+- (NSOperationQueue *)discrepancyResolutionQueue {
+    NSOperationQueue * queue = [[NSOperationQueue alloc] init];
+    [queue setSuspended:YES];
+    for (ABDiscrepancyView * view in discrepancyViews) {
+        NSOperation * operation = [view discrepancyResolutionOperation];
+        if (operation) {
+            [queue addOperation:operation];
+        }
+    }
+    return queue;
+}
+
 #pragma mark ABDiscrepancyViewDelegate
 
 - (void)discrepancyView:(ABDiscrepancyView *)discrepancyView previewPerson:(ABPerson *)person {
@@ -78,7 +91,11 @@
 - (void)discrepancyViewResizedInternally:(ABDiscrepancyView *)discrepancyView {
     [self layoutContentView];
     [self reflectScrolledClipView:self.documentView];
-    [self scrollRectToVisible:discrepancyView.frame];
+    
+    NSRect biggerFrame = discrepancyView.frame;
+    biggerFrame.size.height += 20;
+    biggerFrame.origin.x -= 10;
+    [self.contentView scrollRectToVisible:biggerFrame];
 }
 
 @end
