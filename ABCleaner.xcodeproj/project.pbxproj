@@ -18,6 +18,7 @@
 		FA2E526514C36D02005B72CD /* ABDiscrepancyScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2E526414C36D02005B72CD /* ABDiscrepancyScanner.m */; };
 		FA2E526914C385E3005B72CD /* ABDiscrepancy.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2E526814C385E3005B72CD /* ABDiscrepancy.m */; };
 		FA2E526C14C38B07005B72CD /* ABDiscrepancyView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2E526B14C38B07005B72CD /* ABDiscrepancyView.m */; };
+		FA2E527114C3D4EB005B72CD /* ABDiscrepancyListView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2E527014C3D4EB005B72CD /* ABDiscrepancyListView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,8 @@
 		FA2E526814C385E3005B72CD /* ABDiscrepancy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABDiscrepancy.m; sourceTree = "<group>"; };
 		FA2E526A14C38B07005B72CD /* ABDiscrepancyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABDiscrepancyView.h; sourceTree = "<group>"; };
 		FA2E526B14C38B07005B72CD /* ABDiscrepancyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABDiscrepancyView.m; sourceTree = "<group>"; };
+		FA2E526F14C3D4EB005B72CD /* ABDiscrepancyListView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ABDiscrepancyListView.h; sourceTree = "<group>"; };
+		FA2E527014C3D4EB005B72CD /* ABDiscrepancyListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABDiscrepancyListView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +141,8 @@
 			children = (
 				FA2E526A14C38B07005B72CD /* ABDiscrepancyView.h */,
 				FA2E526B14C38B07005B72CD /* ABDiscrepancyView.m */,
+				FA2E526F14C3D4EB005B72CD /* ABDiscrepancyListView.h */,
+				FA2E527014C3D4EB005B72CD /* ABDiscrepancyListView.m */,
 			);
 			name = "Suggestion View";
 			sourceTree = "<group>";
@@ -228,6 +233,7 @@
 				FA2E526514C36D02005B72CD /* ABDiscrepancyScanner.m in Sources */,
 				FA2E526914C385E3005B72CD /* ABDiscrepancy.m in Sources */,
 				FA2E526C14C38B07005B72CD /* ABDiscrepancyView.m in Sources */,
+				FA2E527114C3D4EB005B72CD /* ABDiscrepancyListView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

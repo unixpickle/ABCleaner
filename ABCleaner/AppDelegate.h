@@ -7,10 +7,16 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <AddressBook/AddressBookUI.h>
 #import "ABDiscrepancyScanner.h"
-#import "ABDiscrepancyView.h"
+#import "ABDiscrepancyListView.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate, ABDiscrepancyScannerDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate, ABDiscrepancyScannerDelegate, ABDiscrepancyListViewDelegate> {
+    ABDiscrepancyListView * discrepancyList;
+    ABPersonView * personView;
+    
+    NSProgressIndicator * loadingSpinner;
+}
 
 @property (assign) IBOutlet NSWindow * window;
 
