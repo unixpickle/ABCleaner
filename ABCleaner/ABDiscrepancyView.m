@@ -41,6 +41,11 @@
 
 #pragma mark - UI -
 
+- (void)setFrame:(NSRect)frameRect {
+    [super setFrame:frameRect];
+    [disclosureIndicator setFrame:NSMakeRect(5, frameRect.size.height - (kTitleHeight / 2) - 8, 13, 13)];
+}
+
 #pragma mark Focus
 
 - (BOOL)isFocused {
@@ -55,6 +60,13 @@
 #pragma mark Actions
 
 - (void)disclosurePressed:(id)sender {
+    NSRect frame = self.frame;
+    if ([disclosureIndicator state] == 0) {
+        frame.size.height = kTitleHeight + 2;
+    } else {
+        frame.size.height = 100;
+    }
+    self.frame = frame;
     [self setNeedsDisplay:YES];
 }
 
@@ -122,6 +134,70 @@
     __unused CGFloat bottomGradient = (isFocused ? 199.0 / 255.0 : 214.0 / 255.0);
     __unused CGFloat borderColor = 153.0 / 255.0;
     __unused CGFloat separatorColor = 168.0 / 255.0;
+    
+    CGRect frame = NSRectToCGRect(self.bounds);
+    
+    // create the gradient to be drawn as the background
+    CGFloat colors[8] = {topGradient, 1, bottomGradient, 1};
+    CGFloat locations[2] = {0, 1};
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+    CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, colors, locations, 2);
+    CGColorSpaceRelease(colorSpace);
+    
+    // variables used for the path
+    CGFloat minX = CGRectGetMinX(frame) + 1, minY = CGRectGetMinY(frame) + 1;
+    CGFloat maxX = CGRectGetMaxX(frame) - 1, maxY = CGRectGetMaxY(frame) - 1;
+    CGFloat cornerRadius = 7;
+    
+    // path covering the entire view (with rounded top corners)
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathMoveToPoint(path, NULL, minX + cornerRadius, maxY);
+    CGPathAddArcToPoint(path, NULL, minX, maxY, minX, maxY - cornerRadius, cornerRadius);
+    CGPathAddLineToPoint(path, NULL, minX, minY);
+    CGPathAddLineToPoint(path, NULL, maxX, minY);
+    CGPathAddArcToPoint(path, NULL, maxX, maxY, minX + cornerRadius, maxY, cornerRadius);
+    
+    // stroke the view's border
+    CGContextBeginPath(context);
+    CGContextAddPath(context, path);
+    CGContextClosePath(context);
+    CGContextSetGrayStrokeColor(context, borderColor, 1);
+    CGContextSetLineWidth(context, 2);
+    CGContextStrokePath(context);
+    
+    // fill the view's content
+    CGContextSaveGState(context);
+    CGContextBeginPath(context);
+    CGContextAddPath(context, path);
+    CGContextClosePath(context);
+    CGContextClip(context);
+    CGContextSetGrayFillColor(context, 0.91, 1);
+    CGContextFillRect(context, frame);
+    CGContextRestoreGState(context);
+
+    // draw the title gradient
+    CGContextSaveGState(context);
+    CGContextBeginPath(context);
+    CGContextMoveToPoint(context, minX + cornerRadius, maxY);
+    CGContextAddArcToPoint(context, minX, maxY, minX, maxY - cornerRadius, cornerRadius);
+    CGContextAddLineToPoint(context, minX, maxY - kTitleHeight);
+    CGContextAddLineToPoint(context, maxX, maxY - kTitleHeight);
+    CGContextAddLineToPoint(context, maxX, maxY - cornerRadius);
+    CGContextAddArcToPoint(context, maxX, maxY, minX + cornerRadius, maxY, cornerRadius);
+    CGContextClosePath(context);
+    CGContextClip(context);
+    CGContextDrawLinearGradient(context, gradient, CGPointMake(0, maxY), CGPointMake(0, maxY - kTitleHeight), 0);
+    CGGradientRelease(gradient);
+    CGContextRestoreGState(context);
+    
+    // draw the title border
+    CGPoint titleSeparatorPoints[] = {CGPointMake(minX, maxY - kTitleHeight - 0.5),
+        CGPointMake(maxX, maxY - kTitleHeight - 0.5)};
+    CGContextSetGrayStrokeColor(context, separatorColor, 1);
+    CGContextSetLineWidth(context, 1);
+    CGContextStrokeLineSegments(context, titleSeparatorPoints, 2);
+    
+    [self drawTitleAtPoint:CGPointMake(22, self.frame.size.height - (kTitleHeight / 2) - 8)];
 }
 
 - (void)drawTitleAtPoint:(CGPoint)aPoint {
