@@ -160,33 +160,16 @@
         NSString * label = [additional labelAtIndex:i];
         id value = [additional valueAtIndex:i];
         
-        NSString * changedLabel = label;
-        NSUInteger appendedNumber = 0;
-        
-        BOOL exists = NO, existsDuplicate = NO;
-        do {
-            if (exists) {
-                if (appendedNumber == 0) {
-                    changedLabel = kABOtherLabel;
-                } else {
-                    changedLabel = [NSString stringWithFormat:@"other %lld", appendedNumber];
-                }
-                appendedNumber++;
-                exists = NO;
+        BOOL existsDuplicate = NO;
+        for (NSUInteger j = 0; j < [mutable count]; j++) {
+            if ([[mutable valueAtIndex:j] isEqualToString:value] && [[mutable labelAtIndex:j] isEqualToString:label]) {
+                existsDuplicate = YES;
+                break;
             }
-            for (NSUInteger j = 0; j < [mutable count]; j++) {
-                if ([[mutable valueAtIndex:j] isEqualToString:value]) {
-                    existsDuplicate = YES;
-                }
-                if ([[mutable labelAtIndex:j] isEqualToString:changedLabel]) {
-                    exists = YES;
-                    break;
-                }
-            }
-            if (existsDuplicate) break;
-        } while (exists);
+        }    
         if (existsDuplicate) continue;
-        [mutable insertValue:value withLabel:changedLabel atIndex:[mutable count]];
+        
+        [mutable insertValue:value withLabel:label atIndex:[mutable count]];
     }
     
     return mutable;

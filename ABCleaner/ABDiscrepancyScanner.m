@@ -50,7 +50,7 @@
 
 - (void)scanAndCall:(void (^)(NSArray * suggestions))callback {
     @autoreleasepool {
-        NSDate * waitUntil = [NSDate dateWithTimeIntervalSinceNow:2];
+        NSDate * waitUntil = [NSDate dateWithTimeIntervalSinceNow:1];
         NSMutableArray * discrepanciesMutable = [[NSMutableArray alloc] init];
         ABAddressBook * book = [ABAddressBook addressBook];
         

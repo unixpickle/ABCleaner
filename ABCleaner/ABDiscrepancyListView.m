@@ -56,14 +56,15 @@
 
 - (void)layoutContentView {
     CGFloat height = 10;
+    NSSize contentSize = self.contentViewSize;
     for (ABDiscrepancyView * discrepancyView in discrepancyViews) {
         NSRect frame = discrepancyView.frame;
         height += frame.size.height + 10;
     }
     
-    if (height < self.frame.size.height) height = self.frame.size.height;
-    [clipView setFrame:NSMakeRect(0, 0, self.frame.size.width, height)];
-    [contentView setFrame:NSMakeRect(0, 0, self.frame.size.width, height)];
+    if (height < contentSize.height) height = contentSize.height;
+    [clipView setFrame:NSMakeRect(0, 0, contentSize.width, height)];
+    [contentView setFrame:NSMakeRect(0, 0, contentSize.width, height)];
     
     CGFloat y = height;
     for (ABDiscrepancyView * discrepancyView in discrepancyViews) {
@@ -71,7 +72,7 @@
         y -= frame.size.height + 10;
         
         frame.origin.y = y;
-        frame.size.width = self.frame.size.width - 20;
+        frame.size.width = contentSize.width - 20;
         frame.origin.x = 10;
         discrepancyView.frame = frame;
         
@@ -84,8 +85,16 @@
         if (![noDiscrepanciesLabel superview]) {
             [contentView addSubview:noDiscrepanciesLabel];
         }
-        [noDiscrepanciesLabel setFrame:NSMakeRect(10, height - 30, self.frame.size.width - 20, 20)];
+        [noDiscrepanciesLabel setFrame:NSMakeRect(10, height - 30, contentSize.width - 20, 20)];
     }
+}
+
+- (NSSize)contentViewSize {
+    NSSize size = [[self class] contentSizeForFrameSize:self.frame.size
+                                  hasHorizontalScroller:self.hasHorizontalScroller
+                                    hasVerticalScroller:self.hasVerticalScroller
+                                             borderType:self.borderType];
+    return size;
 }
 
 - (NSOperationQueue *)discrepancyResolutionQueue {
