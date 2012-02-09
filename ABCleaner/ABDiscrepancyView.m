@@ -321,8 +321,8 @@
                                  textShadow, NSShadowAttributeName, 
                                  [NSColor colorWithDeviceWhite:0.224 alpha:1], NSForegroundColorAttributeName, nil];
     
-    NSMutableAttributedString * title = [[NSMutableAttributedString alloc] initWithString:[discrepancy summary]
-                                                                               attributes:attributes];
+    NSAttributedString * title = [[NSAttributedString alloc] initWithString:[discrepancy summary]
+                                                                 attributes:attributes];
     [title drawAtPoint:NSMakePoint(aPoint.x, aPoint.y)];
 }
 
