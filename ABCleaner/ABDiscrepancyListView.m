@@ -16,7 +16,7 @@
     if ((self = [super initWithFrame:frameRect])) {
         [self setHasVerticalScroller:YES];
         [self setBorderType:NSNoBorder];
-        clipView = [[NSClipView alloc] initWithFrame:frameRect];
+        clipView = [[NSClipView alloc] initWithFrame:self.bounds];
         [self setDocumentView:clipView];
         
         NSMutableArray * mDiscrepancyViews = [[NSMutableArray alloc] initWithCapacity:[discrepancies count]];
